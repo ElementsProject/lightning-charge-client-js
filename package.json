@@ -1,0 +1,24 @@
+{
+  "name": "lightning-strike-client",
+  "version": "0.1.0",
+  "description": "JavaScript client for the Lightning Strike REST API",
+  "license": "MIT",
+  "main": "lib/client.js",
+  "scripts": {
+    "test": "mocha --require babel-polyfill --require babel-register",
+    "prepublish": "babel src --out-dir lib"
+  },
+  "dependencies": {
+    "superagent": "^3.8.1",
+    "superagent-baseuri": "^0.1.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-register": "^6.26.0",
+    "mocha": "^4.0.1"
+  }
+}
