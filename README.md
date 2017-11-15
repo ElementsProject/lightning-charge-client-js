@@ -5,7 +5,7 @@ JavaScript client for the Lightning Strike REST API.
 ## Install
 
 ```bash
-$ npm install lightning-strike-client
+$ npm install github:ElementsProject/lightning-strike-client
 ```
 
 ## Use
