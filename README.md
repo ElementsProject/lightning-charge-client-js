@@ -5,22 +5,22 @@ JavaScript client for the Lightning Strike REST API.
 ## Install
 
 ```bash
-$ npm install github:ElementsProject/lightning-strike-client
+$ npm install github:ElementsProject/lightning-strike-client-js
 ```
 
 ## Use
 
 ```js
-// initialize client
 const LightningStrikeClient = require('lightning-strike-client')
+    , strike = new LightingStrikeClient('http://localhost:8009')
 
-const strike = new LightingStrikeClient('http://localhost:8009')
-
-// create invoice
+// Create invoice
 strike.invoice(/*msatoshi*/ 50, /*metadata*/ { customer_id: 123, product_id: 456 })
   .then(invoice => {
-    console.log('to pay, send %s milli-satoshis with rhash %s, or copy the BOLT11 payment request: %s'
-              , invoice.amount, invoice.rhash, invoice.payreq)
+    console.log('invoice with rhash=%s, BOLT11 payment request: %s'
+              , invoice.rhash, invoice.payreq)
+    // see https://github.com/ElementsProject/lightning-strike#rest-api for the full list
+    // of invoice properties.
 
     // wait for invoice to be paid
     return strike.wait(invoice.id, /* timeout */ 600)
@@ -30,10 +30,12 @@ strike.invoice(/*msatoshi*/ 50, /*metadata*/ { customer_id: 123, product_id: 456
     else console.log('payment timed-out after 600 seconds')
   })
 
-// fetch invoice
+// Fetch invoice
 strike.fetch('m51vlVWuIKGumTLbJ1RPb')
   .then(invoice => console.log('loaded invoice:', invoice))
 ```
+
+TODO: document missing methods
 
 ## Test
 
