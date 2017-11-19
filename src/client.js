@@ -9,10 +9,10 @@ class LightningStrikeClient {
     this.req = superagentBase(url)
   }
 
-  invoice(msatoshi, metadata) {
-    debug('invoice(%s, %j)', msatoshi, metadata)
+  invoice(props) {
+    debug('invoice(%j)', props)
     return this.req.post('/invoice')
-      .type('json').send({ msatoshi, metadata })
+      .type('json').send(props)
       .then(res => res.status === 201 ? res.body : Promise.reject(res))
   }
 

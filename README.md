@@ -15,7 +15,7 @@ const LightningStrikeClient = require('lightning-strike-client')
     , strike = new LightingStrikeClient('http://localhost:8009')
 
 // Create invoice
-strike.invoice(/*msatoshi*/ 50, /*metadata*/ { customer_id: 123, product_id: 456 })
+strike.invoice({ msatoshi: 50, metadata: { customer_id: 123, product_id: 456 } })
   .then(invoice => {
     console.log('invoice with rhash=%s, BOLT11 payment request: %s'
               , invoice.rhash, invoice.payreq)
@@ -33,6 +33,9 @@ strike.invoice(/*msatoshi*/ 50, /*metadata*/ { customer_id: 123, product_id: 456
 // Fetch invoice
 strike.fetch('m51vlVWuIKGumTLbJ1RPb')
   .then(invoice => console.log('loaded invoice:', invoice))
+
+// Create invoice denominated in USD
+strike.invoice({ currency: 'USD', amount: 0.15, metadata: { customer_id: 123 } })
 ```
 
 TODO: document missing methods
