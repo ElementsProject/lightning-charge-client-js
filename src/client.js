@@ -36,4 +36,4 @@ class LightningStrikeClient {
   }
 }
 
-module.exports = LightningStrikeClient
+module.exports = url => new LightningStrikeClient(url)
