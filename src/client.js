@@ -5,8 +5,9 @@ const debug = require('debug')('lightning-strike-client')
 const enc = encodeURIComponent
 
 class LightningStrikeClient {
-  constructor(url) {
+  constructor(url, token) {
     this.req = superagentBase(url)
+    token && this.req.use(r => r.auth('api-token', token))
   }
 
   invoice(props) {
@@ -36,4 +37,4 @@ class LightningStrikeClient {
   }
 }
 
-module.exports = url => new LightningStrikeClient(url)
+module.exports = (url, token) => new LightningStrikeClient(url, token)

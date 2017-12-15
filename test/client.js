@@ -3,7 +3,7 @@ import LightningStrikeClient from '../src/client'
 const { ok, equal: eq, deepEqual: deepEq } = require('assert')
 
 describe('lightning-strike-client', () => {
-  const strike = new LightningStrikeClient(process.env.STRIKE_URL)
+  const strike = new LightningStrikeClient(process.env.STRIKE_URL, process.env.STRIKE_TOKEN)
 
   it('can create invoices', async () => {
     const invoice = await strike.invoice({ msatoshi: 50 })
