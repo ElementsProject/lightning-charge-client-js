@@ -22,7 +22,7 @@ class LightningStrikeClient {
       .then(res => res.status === 200 ? res.body : Promise.reject(res))
   }
 
-  wait(invoice_id, timeout) {
+  wait(invoice_id, timeout=100) {
     debug('wait(%s)', invoice_id)
     return this.req.get(`/invoice/${enc(invoice_id)}/wait?timeout=${timeout}`)
       .then(res => res.status === 200 ? res.body : res.status === 402 ? false : Promise.reject(res))
