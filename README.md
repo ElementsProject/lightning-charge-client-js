@@ -5,7 +5,7 @@ JavaScript client for the Lightning Kite REST API.
 ## Install
 
 ```bash
-$ npm install github:ElementsProject/lightning-kite-client-js
+$ npm install lightning-kite-client
 ```
 
 ## Use
