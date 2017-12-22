@@ -1,7 +1,7 @@
 {
-  "name": "lightning-strike-client",
+  "name": "lightning-kite-client",
   "version": "0.1.2",
-  "description": "JavaScript client for the Lightning Strike REST API",
+  "description": "JavaScript client for the Lightning Kite REST API",
   "license": "MIT",
   "main": "lib/client.js",
   "scripts": {

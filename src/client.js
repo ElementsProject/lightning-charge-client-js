@@ -1,10 +1,10 @@
 import superagentBase from 'superagent-baseuri'
 
-const debug = require('debug')('lightning-strike-client')
+const debug = require('debug')('lightning-kite-client')
 
 const enc = encodeURIComponent
 
-class LightningStrikeClient {
+class LightningKiteClient {
   constructor(url, token) {
     this.req = superagentBase(url)
     token && this.req.use(r => r.auth('api-token', token))
@@ -37,4 +37,4 @@ class LightningStrikeClient {
   }
 }
 
-module.exports = (url, token) => new LightningStrikeClient(url, token)
+module.exports = (url, token) => new LightningKiteClient(url, token)
