@@ -1,6 +1,6 @@
 {
   "name": "lightning-kite-client",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "JavaScript client for the Lightning Kite REST API",
   "license": "MIT",
   "main": "lib/client.js",
