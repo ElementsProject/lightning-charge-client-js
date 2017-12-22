@@ -21,8 +21,9 @@ console.log('invoice with rhash=%s, BOLT11 payment request: %s'
 
 // Long poll payment updates
 const paid = await kite.wait(invoice.id, /* timeout */ 600)
-if (paid) console.log('paid invoice:', paid)
-else console.log('long poll timed-out after 600 seconds without payment')
+if (paid) console.log('invoice paid, updated invoice:', paid)
+else if (paid === false) console.log('invoice unpaid and expired, give up')
+else if (paid === null) console.log('long-poll timed-out after 600 seconds without payment, poll again')
 
 // Fetch invoice
 console.log('invoice:', await kite.fetch('m51vlVWuIKGumTLbJ1RPb'))

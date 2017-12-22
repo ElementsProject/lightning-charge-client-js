@@ -25,8 +25,11 @@ class LightningKiteClient {
 
   wait(invoice_id, timeout=100) {
     debug('wait(%s)', invoice_id)
-    return this.req.get(`/invoice/${enc(invoice_id)}/wait?timeout=${timeout}`)
-      .then(res => res.status === 200 ? res.body : res.status === 402 ? false : Promise.reject(res))
+    return this.req.get(`/invoice/${enc(invoice_id)}/wait?timeout=${+timeout}`)
+      .then(res  => res.body)
+      .catch(err => err.status === 402 ? null  // 402 Payment Required: time-out reached without payment
+                  : err.status === 410 ? false // 410 Gone: invoice expired and can no longer be paid
+                  : Promise.reject(err))
   }
 
   registerHook(invoice_id, url) {
