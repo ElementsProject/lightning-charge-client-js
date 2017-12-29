@@ -1,10 +1,10 @@
 import superagentBase from 'superagent-baseuri'
 
-const debug = require('debug')('lightning-kite-client')
+const debug = require('debug')('lightning-charge-client')
 
 const enc = encodeURIComponent
 
-class LightningKiteClient {
+class LightningChargeClient {
   constructor(url, token) {
     this.req = superagentBase(url)
     token && this.req.use(r => r.auth('api-token', token))
@@ -27,7 +27,7 @@ class LightningKiteClient {
     debug('wait(%s)', invoice_id)
     return this.req.get(`/invoice/${enc(invoice_id)}/wait?timeout=${+timeout}`)
       .then(res  => res.body)
-      .catch(err => err.status === 402 ? null  // 402 Payment Required: time-out reached without payment
+      .catch(err => err.status === 402 ? null  // 402 Payment Required: timeout reached without payment (poll again)
                   : err.status === 410 ? false // 410 Gone: invoice expired and can no longer be paid
                   : Promise.reject(err))
   }
@@ -40,4 +40,4 @@ class LightningKiteClient {
   }
 }
 
-module.exports = (url, token) => new LightningKiteClient(url, token)
+module.exports = (url, token) => new LightningChargeClient(url, token)

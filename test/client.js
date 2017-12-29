@@ -1,26 +1,26 @@
-import LightningKiteClient from '../src/client'
+import LightningChargeClient from '../src/client'
 
 const { ok, equal: eq, deepEqual: deepEq } = require('assert')
 
-describe('lightning-kite-client', () => {
-  const kite = new LightningKiteClient(process.env.KITE_URL, process.env.KITE_TOKEN)
+describe('lightning-charge-client', () => {
+  const charge = new LightningChargeClient(process.env.CHARGE_URL, process.env.CHARGE_TOKEN)
 
   it('can create invoices', async () => {
-    const invoice = await kite.invoice({ msatoshi: 50 })
+    const invoice = await charge.invoice({ msatoshi: 50 })
     ok(invoice.id && invoice.rhash && invoice.payreq)
     eq(invoice.msatoshi, '50')
     return true
   })
 
   it('can create invoices with metadata', async () => {
-    const invoice = await kite.invoice({ msatoshi: 50, metadata: { order: 123, customer: 456, products: [ 789, 987 ] } })
+    const invoice = await charge.invoice({ msatoshi: 50, metadata: { order: 123, customer: 456, products: [ 789, 987 ] } })
     eq(invoice.metadata.order, 123)
     deepEq(invoice.metadata.products, [ 789, 987 ])
   })
 
   it('can fetch invoices', async () => {
-    const saved  = await kite.invoice({ msatoshi: 50, metadata: 'order 123' })
-        , loaded = await kite.fetch(saved.id)
+    const saved  = await charge.invoice({ msatoshi: 50, metadata: 'order 123' })
+        , loaded = await charge.fetch(saved.id)
     eq(saved.id, loaded.id)
     eq(saved.rhash, loaded.rhash)
     eq(loaded.metadata, 'order 123')
@@ -28,8 +28,8 @@ describe('lightning-kite-client', () => {
   })
 
   it('can register webhooks', async () => {
-    const invoice = await kite.invoice({ msatoshi: 50 })
-    ok(await kite.registerHook(invoice.id, 'http://example.com/'))
+    const invoice = await charge.invoice({ msatoshi: 50 })
+    ok(await charge.registerHook(invoice.id, 'http://example.com/'))
   })
 
   xit('can list invoices')
