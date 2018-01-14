@@ -32,7 +32,12 @@ describe('lightning-charge-client', () => {
     ok(await charge.registerHook(invoice.id, 'http://example.com/'))
   })
 
-  xit('can list invoices')
+  it('can list invoices', async () => {
+    const invoices = await charge.fetchAll()
+    ok(invoices.length)
+    ok(invoices[0].id && invoices[1].rhash && invoices[2].payreq)
+  })
+
   xit('long-polls payment updates for specific invoices')
   xit('streams payment updates for all invoices')
 })

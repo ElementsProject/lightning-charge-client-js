@@ -23,6 +23,12 @@ class LightningChargeClient {
       .then(res => res.body)
   }
 
+  fetchAll() {
+    debug('fetchAll()')
+    return this.req.get('/invoices')
+      .then(res => res.body)
+  }
+
   wait(invoice_id, timeout=100) {
     debug('wait(%s)', invoice_id)
     return this.req.get(`/invoice/${enc(invoice_id)}/wait?timeout=${+timeout}`)
