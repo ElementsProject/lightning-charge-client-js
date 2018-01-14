@@ -1,4 +1,6 @@
-import superagentBase from 'superagent-baseuri'
+import { parse, format } from 'url'
+import superagentBase    from 'superagent-baseuri'
+import EventSource       from 'eventsource'
 
 const debug = require('debug')('lightning-charge-client')
 
@@ -6,8 +8,8 @@ const enc = encodeURIComponent
 
 class LightningChargeClient {
   constructor(url, token) {
-    this.req = superagentBase(url)
-    token && this.req.use(r => r.auth('api-token', token))
+    this.url = token == null ? url : format({ ...parse(url), auth: 'api-token:'+token })
+    this.req = superagentBase(this.url.replace(/\/$/, ''))
   }
 
   invoice(props) {
@@ -36,6 +38,12 @@ class LightningChargeClient {
       .catch(err => err.status === 402 ? null  // 402 Payment Required: timeout reached without payment, invoice is still payable
                   : err.status === 410 ? false // 410 Gone: invoice expired and can no longer be paid
                   : Promise.reject(err))
+  }
+
+  stream() {
+    const es = new EventSource(this.url + '/payment-stream')
+    es.on('message', msg => es.emit('payment', JSON.parse(msg.data)))
+    return es
   }
 
   registerHook(invoice_id, url) {

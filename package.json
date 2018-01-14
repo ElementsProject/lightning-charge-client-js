@@ -10,6 +10,7 @@
     "prepublish": "babel src --out-dir lib"
   },
   "dependencies": {
+    "eventsource": "^1.0.5",
     "superagent": "^3.8.1",
     "superagent-baseuri": "^0.1.1"
   },
