@@ -11,23 +11,23 @@ class LightningChargeClient {
   }
 
   invoice(props) {
-    debug('invoice(%j)', props)
+    debug('invoice(%o)', props)
     return this.req.post('/invoice')
       .type('json').send(props)
-      .then(res => res.status === 201 ? res.body : Promise.reject(res))
+      .then(res => res.body)
   }
 
   fetch(invoice_id) {
     debug('fetch(%s)', invoice_id)
     return this.req.get('/invoice/'+enc(invoice_id))
-      .then(res => res.status === 200 ? res.body : Promise.reject(res))
+      .then(res => res.body)
   }
 
   wait(invoice_id, timeout=100) {
     debug('wait(%s)', invoice_id)
     return this.req.get(`/invoice/${enc(invoice_id)}/wait?timeout=${+timeout}`)
       .then(res  => res.body)
-      .catch(err => err.status === 402 ? null  // 402 Payment Required: timeout reached without payment (poll again)
+      .catch(err => err.status === 402 ? null  // 402 Payment Required: timeout reached without payment, invoice is still payable
                   : err.status === 410 ? false // 410 Gone: invoice expired and can no longer be paid
                   : Promise.reject(err))
   }
@@ -36,7 +36,7 @@ class LightningChargeClient {
     debug('registerHook(%s, %s)', invoice_id, url)
     return this.req.post('/invoice/'+enc(invoice_id)+'/webhook')
       .type('json').send({ url })
-      .then(res => res.status === 201 ? true : Promise.reject(res))
+      .then(res => true)
   }
 }
 
