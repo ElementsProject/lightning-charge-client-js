@@ -41,7 +41,7 @@ class LightningChargeClient {
   }
 
   stream() {
-    const es = new EventSource(this.url + '/payment-stream')
+    const es = new EventSource(this.url + 'payment-stream')
     es.on('message', msg => es.emit('payment', JSON.parse(msg.data)))
     return es
   }
