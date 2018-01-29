@@ -8,8 +8,9 @@ const enc = encodeURIComponent
 
 class LightningChargeClient {
   constructor(url, token) {
-    this.url = token == null ? url : format({ ...parse(url), auth: 'api-token:'+token })
-    this.req = superagentBase(this.url.replace(/\/$/, ''))
+    this.url = (token == null ? url : format({ ...parse(url), auth: 'api-token:'+token }))
+               .replace(/\/+$/, '')
+    this.req = superagentBase(this.url)
   }
 
   invoice(props) {
