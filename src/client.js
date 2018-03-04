@@ -6,8 +6,10 @@ const debug = require('debug')('lightning-charge-client')
 
 const enc = encodeURIComponent
 
+const defaultUrl = 'http://localhost:9112'
+
 class LightningChargeClient {
-  constructor(url, token) {
+  constructor(url=defaultUrl, token) {
     this.url = (token == null ? url : format({ ...parse(url), auth: 'api-token:'+token }))
                .replace(/\/+$/, '')
     this.req = superagentBase(this.url)
