@@ -55,6 +55,12 @@ class LightningChargeClient {
       .type('json').send({ url })
       .then(res => true)
   }
+
+  info() {
+    debug('info()')
+    return this.req.get('/info')
+      .then(res => res.body)
+  }
 }
 
 module.exports = (url, token) => new LightningChargeClient(url, token)
