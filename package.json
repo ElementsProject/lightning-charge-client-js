@@ -1,6 +1,6 @@
 {
   "name": "lightning-charge-client",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "JavaScript client for the Lightning Charge REST API",
   "repository": "https://github.com/ElementsProject/lightning-charge-client-js",
   "license": "MIT",
