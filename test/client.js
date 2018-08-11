@@ -38,6 +38,11 @@ describe('lightning-charge-client', () => {
     ok(invoices[0].id && invoices[1].rhash && invoices[2].payreq)
   })
 
+  it('can get node info', async () => {
+    const info = await charge.info()
+    ok(info.id && info.version && info.blockheight)
+  })
+
   xit('long-polls payment updates for specific invoices')
   xit('streams payment updates for all invoices')
 })
