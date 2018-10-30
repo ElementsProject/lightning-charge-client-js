@@ -10,7 +10,7 @@
     "prepublish": "babel src --out-dir lib"
   },
   "dependencies": {
-    "eventsource": "^1.0.5",
+    "eventsource": "^1.0.7",
     "superagent": "^3.8.3",
     "superagent-baseuri": "^0.1.1"
   },
@@ -19,7 +19,7 @@
     "babel-plugin-syntax-object-rest-spread": "^6.13.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "mocha": "^5.2.0"
   }
